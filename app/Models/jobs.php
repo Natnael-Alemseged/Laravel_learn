@@ -1,18 +1,17 @@
 <?php
 
-namespace  app\Models;
+namespace  App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Arr;
+use Illuminate\Notifications\Notifiable;
+
 
 class Jobs extends Model
 {
-    use HasFactory;
+    use HasFactory,Notifiable;
 
     protected $table = 'job_listings';
 
-    protected $fillable=['title', 'salary'];
-
-
+    protected $fillable = ['title', 'salary'];
 }
