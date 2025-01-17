@@ -1,7 +1,9 @@
 <?php
 
+use App\Models\Tag;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Queue\Jobs\Job;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -13,6 +15,15 @@ return new class extends Migration
     {
         Schema::create('tags', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->timestamps();
+        });
+
+        Schema::create('job_tags', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->foreignIdFor(\App\Models\Jobs::class, 'job_listing_id')->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(\App\Models\Tag::class)->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -23,5 +34,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('tags');
+        Schema::dropIfExists('job_tags');
     }
 };
